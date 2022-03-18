@@ -28,6 +28,8 @@
   <!-- Nucleo Icons -->
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Elektra Icons -->
+  <link href="../assets/css/elektra-style.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
@@ -250,54 +252,85 @@
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
+        <!-- ### Machine Status ### -->
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">weekend</i>
+              <div id="elektron-status:icons" class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                  <img id="elektron-status-warn-faulty_boiler"   class="elektra-icon small hidden" src="./../../elektra-icons/icon_ug10.png"    alt="status:machine">
+                  <img id="elektron-status-warn-faulty_group"    class="elektra-icon small hidden" src="./../../elektra-icons/icon_uc46.png"    alt="status:machine">
+                  <img id="elektron-status-warn-no_water"        class="elektra-icon small hidden" src="./../../elektra-icons/icon_ug21.png"    alt="status:machine">
+                  <img id="elektron-status-off"                  class="elektra-icon small hidden" src="./../../elektra-icons/icon_ug4.png"    alt="status:machine">
+                  <img id="elektron-status-idle"                 class="elektra-icon       hidden" src="./../../elektra-icons/icon_uc123.png"  alt="status:machine">
+                  <img id="elektron-status-heating"              class="elektra-icon small hidden" src="./../../elektra-icons/icon_uc43.png"   alt="status:machine">
+                  <img id="elektron-status-ready"                class="elektra-icon       " src="./../../elektra-icons/icon_ug38.png"   alt="status:machine">
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                <h4 class="mb-0">$53k</h4>
+                <p class="text-sm mb-0 text-capitalize">Machine Status</p>
+                <div id="elektron-status:text">
+                  <h4 id="elektron-status-warn-faulty_boiler"   class="mb-0 elektra-text hidden"> <span class="text-danger text-md font-weight-bolder">Faulted Boiler</span>  </h4>
+                  <h4 id="elektron-status-warn-faulty_group"    class="mb-0 elektra-text hidden"> <span class="text-danger text-md font-weight-bolder">Faulted Group</span>  </h4>
+                  <h4 id="elektron-status-warn-no_water"        class="mb-0 elektra-text hidden"> <span class="text-warning text-md font-weight-bolder">Water Tank Empty</span>  </h4>
+                  <h4 id="elektron-status-off"                  class="mb-0 elektra-text hidden"> Off     </h4>
+                  <h4 id="elektron-status-idle"                 class="mb-0 elektra-text hidden"> Idling  </h4>
+                  <h4 id="elektron-status-heating"              class="mb-0 elektra-text hidden"> Heating </h4>
+                  <h4 id="elektron-status-ready"                class="mb-0 elektra-text "> Ready   </h4>
+                </div>
               </div>
             </div>
             <hr class="dark horizontal my-0">
-            <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than lask week</p>
+            <div id="elektron-status:hint" class="card-footer p-3">
+              <p id="elektron-status-warn-faulty_boiler"    class="mb-0 elektra-text hidden"> Boiler water level <span class="text-danger font-weight-bolder"> control error!</span>  </p>
+              <p id="elektron-status-warn-faulty_group"     class="mb-0 elektra-text hidden"> Dispensing group temperature <span class="text-danger font-weight-bolder"> control error!</span>  </p>
+              <p id="elektron-status-warn-no_water"         class="mb-0 elektra-text hidden"> Please  <span class="text-warning font-weight-bolder">refill</span> the water-tank </p>
+              <p id="elektron-status-off"                   class="mb-0 elektra-text hidden"> Machine is <span class="text-dark font-weight-bolder">sleeping </span>  </p>
+              <p id="elektron-status-idle"                  class="mb-0 elektra-text hidden"> Please <span class="text-info font-weight-bolder">level for 3s</span> to heat </p>
+              <p id="elektron-status-heating"               class="mb-0 elektra-text hidden"> <span class="text-danger font-weight-bolder">Heating ...</span>  </p>
+              <p id="elektron-status-ready"                 class="mb-0 elektra-text "> <span class="text-success font-weight-bolder">Ready to pull the shot! </span>  </p>
             </div>
           </div>
         </div>
+        <!-- ### Pre-infusion Monitor ### -->
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-header p-3 pt-2">
               <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">person</i>
+                <img src="./../../elektra-icons/icon_uc73.png" alt="status:temperature" class="elektra-icon small">
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                <h4 class="mb-0">2,300</h4>
+                <p class="text-sm mb-0 text-capitalize"> Temperature</p>
+                <h4 class="mb-0">
+                  <span class="font-weight-bolder">78 C</span> <span class="text-sm">(78 F)</span>
+                </h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than lask month</p>
+              <p class="mb-0">Configured to <span class="text-primary font-weight-bolder">78 C</span> <span class="text-primary text-sm">(78 F)</span></p>
             </div>
           </div>
         </div>
+        <!-- ### Pre-infusion Monitor ### -->
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">person</i>
+              <div id="elektron-status-online:icon" class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                <img id="elektron-status-online-offline"        class="elektra-icon small hidden" src="./../../elektra-icons/icon_ug4.png" alt="status:offline">
+                <img id="elektron-status-online-ready"          class="elektra-icon       " src="./../../elektra-icons/icon_uc123_pull.png" alt="status:not-brew">
+                <img id="elektron-status-online-pre-infusion"   class="elektra-icon       hidden" src="./../../elektra-icons/icon_uc119.png" alt="status:pre-infusion-time">
+                <img id="elektron-status-online-brewing"        class="elektra-icon       hidden" src="./../../elektra-icons/icon_uc118.png" alt="status:brew-time">
               </div>
-              <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                <h4 class="mb-0">3,462</h4>
+              <div id="elektron-status-online:text" class="text-end pt-1">
+                <p id="elektron-status-online-offline"      class="text-sm mb-0 text-capitalize elektra-text hidden">Offline</p>
+                <p id="elektron-status-online-ready"        class="text-sm mb-0 text-capitalize elektra-text ">Ready</p>
+                <p id="elektron-status-online-pre-infusion" class="text-sm mb-0 text-capitalize elektra-text hidden">Pre-Infusion</p>
+                <p id="elektron-status-online-brewing"      class="text-sm mb-0 text-capitalize elektra-text hidden">Brewing</p>
+                <h4 class="mb-0">0 s</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
-            <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
+            <div id="elektron-status-online:hint" class="card-footer p-3">
+              <p id="elektron-status-online-offline" class="mb-0 elektra-text">Pre-infusion is set to <span class="text-success font-weight-bolder">8s</span></p>
             </div>
           </div>
         </div>
@@ -305,16 +338,16 @@
           <div class="card">
             <div class="card-header p-3 pt-2">
               <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">weekend</i>
+                <img src="./../../elektra-icons/icon_ic52.png" alt="status:pre-infusion-time" class="elektra-icon">
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Sales</p>
-                <h4 class="mb-0">$103,430</h4>
+                <p class="text-sm mb-0 text-capitalize">Cup Counter</p>
+                <h4 class="mb-0">512</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday</p>
+              <p class="mb-0">Brewed <span class="text-success text-sm font-weight-bolder">+5 Cups </span> this week</p>
             </div>
           </div>
         </div>
