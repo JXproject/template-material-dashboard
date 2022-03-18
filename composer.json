@@ -7,6 +7,10 @@
         {
             "name": "Creative Tim",
             "email": "hello@creative-tim.com"
+        },
+        {
+            "name": "Jack Xu",
+            "email": ""
         }
     ],
     "require": {}
