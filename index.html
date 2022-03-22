@@ -31,6 +31,9 @@
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Elektra Icons -->
   <link href="../assets/css/elektra-style.css" rel="stylesheet" />
+  <!-- Elektra App -->
+  <script type="text/javascript" src="../assets/js/plugins/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="../assets/js/elektra-app.js"/></script>
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
@@ -44,14 +47,14 @@
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="./../../elektra-imgs/Logo_Elektra_2020_bianco_no_payoff.png" class="navbar-brand-img h-100" alt="main_logo">
+        <img src="./assets/elektra-imgs/Logo_Elektra_2020_bianco_no_payoff.png" class="navbar-brand-img h-100" alt="main_logo">
       </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <img src="./../../elektra-imgs/VerveFront600x600.png" class="elektra-icon full" alt="verve-img">
+          <img src="./assets/elektra-imgs/VerveFront600x600.png" class="elektra-icon full" alt="verve-img">
         </li>
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Elektra Verve</h6>
@@ -214,19 +217,20 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
+      <!-- Monitor Blocks -->
       <div class="row">
         <!-- ### Machine Status ### -->
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-header p-3 pt-2">
               <div id="elektra-status:icons" class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                  <img id="elektra-status-warn-faulty_boiler"   class="elektra-icon small hidden" src="./../../elektra-icons/icon_ug10.png"    alt="status:machine">
-                  <img id="elektra-status-warn-faulty_group"    class="elektra-icon small hidden" src="./../../elektra-icons/icon_uc46.png"    alt="status:machine">
-                  <img id="elektra-status-warn-no_water"        class="elektra-icon small hidden" src="./../../elektra-icons/icon_ug21.png"    alt="status:machine">
-                  <img id="elektra-status-off"                  class="elektra-icon small hidden" src="./../../elektra-icons/icon_ug4.png"    alt="status:machine">
-                  <img id="elektra-status-idle"                 class="elektra-icon       hidden" src="./../../elektra-icons/icon_uc123.png"  alt="status:machine">
-                  <img id="elektra-status-heating"              class="elektra-icon small hidden" src="./../../elektra-icons/icon_uc43.png"   alt="status:machine">
-                  <img id="elektra-status-ready"                class="elektra-icon       " src="./../../elektra-icons/icon_ug38.png"   alt="status:machine">
+                  <img id="elektra-status-warn-faulty_boiler"   class="elektra-icon small hidden" src="./assets/elektra-icons/icon_ug10.png"    alt="status:machine">
+                  <img id="elektra-status-warn-faulty_group"    class="elektra-icon small hidden" src="./assets/elektra-icons/icon_uc46.png"    alt="status:machine">
+                  <img id="elektra-status-warn-no_water"        class="elektra-icon small hidden" src="./assets/elektra-icons/icon_ug21.png"    alt="status:machine">
+                  <img id="elektra-status-off"                  class="elektra-icon small hidden" src="./assets/elektra-icons/icon_ug4.png"    alt="status:machine">
+                  <img id="elektra-status-idle"                 class="elektra-icon       hidden" src="./assets/elektra-icons/icon_uc123.png"  alt="status:machine">
+                  <img id="elektra-status-heating"              class="elektra-icon small hidden" src="./assets/elektra-icons/icon_uc43.png"   alt="status:machine">
+                  <img id="elektra-status-ready"                class="elektra-icon       " src="./assets/elektra-icons/icon_ug38.png"   alt="status:machine">
               </div>
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Machine Status</p>
@@ -253,12 +257,30 @@
             </div>
           </div>
         </div>
-        <!-- ### Pre-infusion Monitor ### -->
+        <!-- ### Cup Monitor ### -->
+        <div class="col-xl-3 col-sm-6">
+          <div class="card">
+            <div class="card-header p-3 pt-2">
+              <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                <img src="./assets/elektra-icons/icon_ic52.png" alt="status:pre-infusion-time" class="elektra-icon">
+              </div>
+              <div class="text-end pt-1">
+                <p class="text-sm mb-0 text-capitalize">Cup Counter</p>
+                <h4 class="mb-0">512</h4>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            <div class="card-footer p-3">
+              <p class="mb-0">Brewed <span class="text-success text-sm font-weight-bolder">+5 Cups </span> this week</p>
+            </div>
+          </div>
+        </div>
+        <!-- ### Temperature Monitor ### -->
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-header p-3 pt-2">
               <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-                <img src="./../../elektra-icons/icon_uc73.png" alt="status:temperature" class="elektra-icon small">
+                <img src="./assets/elektra-icons/icon_uc73.png" alt="status:temperature" class="elektra-icon small">
               </div>
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize"> Temperature</p>
@@ -278,10 +300,10 @@
           <div class="card">
             <div class="card-header p-3 pt-2">
               <div id="elektra-status-online:icon" class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                <img id="elektra-status-online-offline"        class="elektra-icon small hidden" src="./../../elektra-icons/icon_ug4.png" alt="status:offline">
-                <img id="elektra-status-online-ready"          class="elektra-icon       " src="./../../elektra-icons/icon_uc123_pull.png" alt="status:not-brew">
-                <img id="elektra-status-online-pre-infusion"   class="elektra-icon       hidden" src="./../../elektra-icons/icon_uc119.png" alt="status:pre-infusion-time">
-                <img id="elektra-status-online-brewing"        class="elektra-icon       hidden" src="./../../elektra-icons/icon_uc118.png" alt="status:brew-time">
+                <img id="elektra-status-online-offline"        class="elektra-icon small hidden" src="./assets/elektra-icons/icon_ug4.png" alt="status:offline">
+                <img id="elektra-status-online-ready"          class="elektra-icon       " src="./assets/elektra-icons/icon_uc123_pull.png" alt="status:not-brew">
+                <img id="elektra-status-online-pre-infusion"   class="elektra-icon       hidden" src="./assets/elektra-icons/icon_uc119.png" alt="status:pre-infusion-time">
+                <img id="elektra-status-online-brewing"        class="elektra-icon       hidden" src="./assets/elektra-icons/icon_uc118.png" alt="status:brew-time">
               </div>
               <div id="elektra-status-online:text" class="text-end pt-1">
                 <p id="elektra-status-online-offline"      class="text-sm mb-0 text-capitalize elektra-text hidden">Offline</p>
@@ -297,28 +319,65 @@
             </div>
           </div>
         </div>
-        <!-- ### Cup Monitor ### -->
-        <div class="col-xl-3 col-sm-6">
+      </div>
+      
+      <!-- Progress Block -->
+      <div class="row mt-4">
+        <!-- ### Progress Monitor ### -->
+        <div class="col-xl-12 col-sm-12 mb-4">
           <div class="card">
             <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                <img src="./../../elektra-icons/icon_ic52.png" alt="status:pre-infusion-time" class="elektra-icon">
-              </div>
+              <!-- <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+                <img src="./assets/elektra-icons/icon_uc73.png" alt="status:temperature" class="elektra-icon small">
+              </div> -->
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Cup Counter</p>
-                <h4 class="mb-0">512</h4>
+                <p class="text-sm mb-0 text-capitalize"> Brewing Progress</p>
+                <!-- <h4 class="mb-0">
+                  <span class="font-weight-bolder">78 C</span> <span class="text-sm">(78 F)</span>
+                </h4> -->
               </div>
             </div>
-            <hr class="dark horizontal my-0">
+            <div class="card-body">
+              <!-- <h6 class="mb-0 ">WIP</h6> -->
+              <!-- <p class="text-sm ">WIP</p> -->
+              <!-- <div class="progress progress-lg"> -->
+                <!-- <div class="elektra-progress-bar pre-infusion" style="width: 20%;" role="progressbar"> -->
+                <div class="elektra-progress-bar">
+                      <div id="progressbar" class="progress" style="--progress: var(--mouse-x, 0)">
+                        <div class="wrapper">
+                          <div class="tooltip-container">
+                            <div class="tooltip">
+                              <h4 class="text-sm">
+                                <span class="number" id="number" data-number="10.0s"></span>
+                                Progress
+                              </h4>
+                              <div class="tooltip-indicator"></div>
+                            </div>
+                            
+                          </div>
+                          <div class="bar">
+                            
+                          </div>
+                          
+                        </div>
+                      </div>
+                </div>
+              <!-- </div> -->
+              <!-- <hr class="dark horizontal"> -->
+              <!-- <div class="d-flex ">
+                <i class="material-icons text-sm my-auto me-1">schedule</i>
+                <p class="mb-0 text-sm"> Last cleaning 2 days ago </p>
+              </div> -->
+            </div>
+            
             <div class="card-footer p-3">
-              <p class="mb-0">Brewed <span class="text-success text-sm font-weight-bolder">+5 Cups </span> this week</p>
+              <!-- <p class="mb-0">Configured to <span class="text-primary font-weight-bolder">78 C</span> <span class="text-primary text-sm">(78 F)</span></p> -->
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="row mt-4">
-        
-      </div> -->
+      
+      <!-- Plot and Events -->
       <div class="row mt-4">
         <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
           <div class="row">
@@ -410,7 +469,7 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="../../beans-icons/idc.png" class="avatar avatar-sm me-3" alt="xd">
+                            <img src="../assets/beans-icons/idc.png" class="avatar avatar-sm me-3" alt="xd">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm">Daterra Farms Sweet Blue</h6>
