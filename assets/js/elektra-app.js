@@ -5,12 +5,16 @@ const VERBOSE = true;
 const CONST_LOST_COM_TIMEOUT_100MS = 50; // 5 [s]
 const CONST_ELEKTRA_JSON_URL = "http://192.168.0.227:8000";//"/elektra.json";
 
+const ELEKTRA_STATUS_RUNNING  = Symbol("running")
+const ELEKTRA_STATUS_SLEEPING = Symbol("in-sleep")
+const ELEKTRA_STATUS_IDLE     = Symbol("idling")
+const ELEKTRA_STATUS_HEATING  = Symbol("heating")
 /*----------------------------------------------------*/
 /* Global Placeholder:
 ------------------------------------------------------ */
 var APP_TICKS_100MS             = 0;
 var APP_ELEKTRA_JSON_DATA       = {};
-var APP_ELEKTRA_LAST_COM_100MS  = 0;
+var APP_ELEKTRA_LAST_COM_TS     = 0;
 var APP_TIMER_PROGRESS_TS       = Date.now();
 
 var BREW_PROFILE = {
@@ -34,32 +38,50 @@ function startEngine() {
 
     // Const update:
     var FrameTimer = setInterval(function(){
-        
+        // update app:
         app_update_100ms();
-        
+
+        // request updates:
+        app_acquire_data_100ms();
+
+        // increment counter
         APP_TICKS_100MS ++;
     },100);
 }
 
 
 function app_update_100ms() {
-    // input:
-    app_acquire_data_100ms();
-    // user-UI actions:
-    app_process_user_action_100ms();
+    // acquire time:
+    time_now_ts = Date.now()
+    
+    // process previous data:
+    elektra_status = app_process_ELEKTRA_100ms(time_now_ts);
     
     // transition:
-    
-    // action:
-    app_update_progress_bar_100ms();
+    switch (elektra_status) {
+        case ELEKTRA_STATUS_RUNNING:
+            // report progress:
+            app_update_progress_bar_100ms(time_now_ts);
+            break;
+        case ELEKTRA_STATUS_IDLE:
+        case ELEKTRA_STATUS_HEATING:
+        case ELEKTRA_STATUS_SLEEPING:
+        default:
+            // Permit user-UI actions:
+            user_action = app_process_user_action_100ms(time_now_ts);
+            // Sync date and time:
+            app_process_check_and_sync_date_time_100ms();
+            break;
+    }
+
 }
 
-function app_update_progress_bar_100ms() {
+function app_update_progress_bar_100ms(time_now_ts) {
     const color1 = '#3E8EF7';
     const color2 = '#EC407A';
 
     // - compute:
-    time_now_ts = Date.now()
+    // time_now_ts = Date.now()
     delta_time_ms = time_now_ts - APP_TIMER_PROGRESS_TS
     MAX_BREW = BREW_PROFILE["brewing-max"]
     PRE_BREW = BREW_PROFILE["pre-infusion"]
@@ -113,15 +135,28 @@ function app_update_progress_bar_100ms() {
     return true
 }
 
-function app_process_user_action_100ms(){
-    // APP_TIMER_PROGRESS_TS = time_now_ts
+
+function app_process_ELEKTRA_100ms(time_now_ts) {
+
+    // We will be processing ELEKTRA status feedback here:
+    // APP_ELEKTRA_LAST_COM_TS
+    // APP_ELEKTRA_JSON_DATA
+
+    APP_TIMER_PROGRESS_TS = time_now_ts
+
+
+
+    return ELEKTRA_STATUS_RUNNING;
+}
+
+function app_process_user_action_100ms(time_now_ts){
 }
 
 function app_acquire_data_100ms() {
     $.ajax({
         url: CONST_ELEKTRA_JSON_URL, dataType: 'json', 
         success: function (result) {
-            APP_ELEKTRA_LAST_COM_100MS = APP_TICKS_100MS;
+            APP_ELEKTRA_LAST_COM_TS = Date.now();
             APP_ELEKTRA_JSON_DATA = result;
         },
         error: (request, error) => {
@@ -131,6 +166,19 @@ function app_acquire_data_100ms() {
     });
 }
 
+function app_process_check_and_sync_date_time_100ms(){
+    var now = new Date();
+    // console.log(now.getHours(), now.getMinutes(), now.getDate(), now.getMonth(), now.getFullYear());
+    var time = ((now.getHours() & 0xFF) << 8) | (now.getMinutes() & 0xFF);
+    var date = (now.getDate() & 0x1F) | ((now.getMonth() + 1 & 0x0F) << 5) | (((now.getFullYear() - 2000) & 0x7F) << 9)
+    if(JSONData.TIME !== time) {
+        write_reg(16, time, () => {
+            if(date !== JSONData.DATE) {
+                write_reg(17, date, () => {})
+            }
+        })
+    }
+}
 
 /*----------------------------------------------------*/
 /* Helper:
@@ -138,4 +186,78 @@ function app_acquire_data_100ms() {
 function console_print(content) {
     if (VERBOSE)
         console.log("[Elektra-APP] > "+ content);
+}
+
+
+/*----------------------------------------------------*/
+/* Elektra Verve Helper:
+------------------------------------------------------ */
+function formatTemp(value) {
+    return `${value}°`;
+}
+
+function convertToF(celsius) {
+    return Math.round(celsius * 9/5 + 32);
+}
+
+function pos(parent, obj, x, y, width, height)
+{
+    const w = width || STAGE_WIDTH;
+    const h = height || STAGE_HEIGHT;
+    if(obj.getBounds())  {
+        obj.regX = obj.getBounds().width / 2;
+        obj.regY = obj.getBounds().height / 2;
+    }
+    else {
+        obj.regX = obj.getMeasuredWidth() / 2;
+        obj.regY = obj.getMeasuredHeight() / 2;
+    }
+    obj.x = w * x;
+    obj.y = h * y;
+    obj.scale = BMP_DEFAULT_SCALE;
+    parent.addChild(obj);
+}
+
+function checkBit(value, pos) {
+    return ((value) & (1<<(pos)))
+}
+
+function setBit(value, pos) {
+    return ((value) | (1<<(pos)))
+}
+
+function resetBit(value, pos) {
+    return ((value) & ~(1<<(pos)))
+}
+
+function toggleBit(value, pos) {
+    return ((value) ^ (1<<(pos)))
+}
+
+function pad(value, length, type) {
+    const padding = type || '0';
+    return (value.toString().length < length) ? pad(padding + value, length, type) : value;
+}
+
+function padTemp(val) {
+    // return pad(val, 3, ' ');
+    return val;
+}
+
+function padTime(val) {
+    // return pad(val, 3, ' ');
+    return val;
+}
+
+function write_reg(addr, value, cb) {
+    console.log("write_reg:", addr, "value:", value);
+    $.ajax({
+        url: "/web.cgi?elektra_write=" + addr + "|" + value,
+        success: function (res) {
+            cb(null, res);
+        },
+        error: function(err) {
+            cb(err, null);
+        }
+    });
 }
